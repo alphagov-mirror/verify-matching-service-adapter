@@ -3,9 +3,33 @@ MSA Release Notes
 
 ### Next
 * Add new G3 CAs to the production and test trust stores, as well as new dev-pki CAs to the test trust stores.
-* Default metadata trust stores are now used by default and no longer need configuring. The defaults can still be overridden. If you are not using custom trust stores you will need to remove the config to allow the defaults to work. See prod-config.yml or test-config.yml for details.
+* Default metadata trust stores are now used by default and no longer need configuring. The defaults can still be overridden. If you are not using custom trust stores you will need to remove the config to allow the defaults to work. See below for config change details.
 * Various updates to allow the backwards compatibility tests to run.
 * UKCloud artifactory has been replaced with new JFrog SaaS artifactory.
+
+#### Configuration change details
+```diff
+ metadata:
++  # Choices are (INTEGRATION|PRODUCTION)
++  environment: INTEGRATION
+- trustStore:
+-   path: test_ida_metadata.ts
+-   password: puppet
+
+ europeanIdentity:
+   enabled: true
+   aggregatedMetadata:
+     jerseyClientName: trust-anchor-client
++    # Choices are (INTEGRATION|PRODUCTION)
++    environment: INTEGRATION
+-   trustAnchorUri: https://www.integration.signin.service.gov.uk/SAML2/metadata/trust-anchor
+-   metadataSourceUri: https://www.integration.signin.service.gov.uk/SAML2/metadata/aggregator
+-   trustStore:
+-     path: test_ida_metadata.ts
+-     password: puppet
+
+```
+
 
 ### 4.2.1
 [View Diff](https://github.com/alphagov/verify-matching-service-adapter/compare/4.1.0...4.2.1)
